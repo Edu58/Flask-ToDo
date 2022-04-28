@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% block styles %}
+          <!-- Bootstrap CSS -->
+          {{ bootstrap.load_css() }}
+        {% endblock %}
+
+        <title>ToDo</title>
+    {% endblock %}
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid d-flex justify-content-between">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand fs-4 fw-bolder">F-ToDO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+              <a href="{{ url_for('views.index') }}" class="nav-link active rounded mx-4" aria-current="page">Home</a>
+            </li>
+              <li class="nav-item">
+              <a href="{{ url_for('auth.logout') }}" class="nav-link active rounded mx-4" aria-current="page">Logout</a>
+            </li>
+              {% else %}
+              <li class="nav-item">
+              <a href="{{ url_for('auth.signup') }}" class="nav-link active rounded mx-4" aria-current="page">Signup</a>
+            </li>
+              <li class="nav-item">
+              <a href="{{ url_for('auth.login') }}" class="nav-link active rounded mx-4" aria-current="page">Login</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  <div class="container">
+
+      <div class="my-2">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+        {% if category == 'error' %}
+            <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                <div class="text-center">
+                    {{ message }}
+                </div>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% else %}
+            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                <div  class="text-center">
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+      {% endif %}
+      {% endfor %}
+            {% endif %}
+          {% endwith %}
+      </div>
+
+      {% block content %}
+
+      {% endblock %}
+  </div>
+
+  {% block scripts %}
+    <!-- Bootstrap JS -->
+    {{ bootstrap.load_js() }}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
+  {% endblock %}
+</body>
+</html>

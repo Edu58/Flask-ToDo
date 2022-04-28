@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <form method="POST" class="w-75 mt-4 card p-3">
+    <p class="fw-bold">Add a Todo <span class="fw-light fst-italic">as @{{ user.username }}</span></p>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="todo" placeholder="Add a ToDo" aria-label="a new todo" aria-describedby="button-addon2">
+        <button type="submit" class="btn btn-outline-success" id="button-addon2">Add</button>
+    </div>
+</form>
+</div>
+
+<div class="mt-5">
+    <ol class="list-group list-group-numbered">
+        {% for todo in user.todos %}
+        <li class="list-group-item my-2">{{ todo.task }} <span class="float-end" onclick="deleteTodo({{ todo.id }})"><button type="button" class="btn">&times</button></span></li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

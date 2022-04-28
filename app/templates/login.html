@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card w-50">
+    <p class="card-header fs-3 text-center">Login</p>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter a valid email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control"  placeholder="Enter a password atleast 8 characters" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 my-3">Login</button>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}
